@@ -20,9 +20,9 @@ int k_len, k_avail;
 //===========================================================
 // 4) Create two functions which will add and remove character from kfifo with following prototype.and export them
 
-void kfifo_push(char ch)
+void kfifo_push(char *ch)
 {
-	ret = kfifo_in(&my_fifo, ch, 15)
+	ret = kfifo_in(&my_kfifo, ch, 15);
 	if(ret < 0)
 	{
 		printk(KERN_ERR " %s : kfifo push/in is failed\n", THIS_MODULE->name);
@@ -32,10 +32,11 @@ void kfifo_push(char ch)
 
 }
 
-char kfifo_pop(void)
+char* kfifo_pop(void)
 {
 	
-	 ret = kfifo_out(&my_fifo, str, 3);
+	 ret = kfifo_out(&my_kfifo, str, 3);
+	 if(ret < 0)
 	 {
 		printk(KERN_ERR " %s : kfifo pop/out is failed\n", THIS_MODULE->name);
 

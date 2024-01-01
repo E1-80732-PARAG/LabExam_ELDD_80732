@@ -1,5 +1,5 @@
 
-obj-m = export.o
+obj-m = export.o import.o
 
 
 modules:
