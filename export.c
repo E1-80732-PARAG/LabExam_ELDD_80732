@@ -5,6 +5,7 @@
 #include <linux/moduleparam.h>
 
 int ret;
+char str[3];
 //===========================================================
 // 1) a. Pass kfifo size as module parameter.
 int k_size = 1;
@@ -17,6 +18,35 @@ struct kfifo my_kfifo;
 //3) Create global variables for kfifo size, kfifo length and kfifo available. Export all these variable from current module.
 int k_len, k_avail;
 //===========================================================
+// 4) Create two functions which will add and remove character from kfifo with following prototype.and export them
+
+void kfifo_push(char ch)
+{
+	ret = kfifo_in(&my_fifo, ch, 15)
+	if(ret < 0)
+	{
+		printk(KERN_ERR " %s : kfifo push/in is failed\n", THIS_MODULE->name);
+		
+	}
+	printk(KERN_INFO " %s : kfifo push/in is DONE\n", THIS_MODULE->name);
+
+}
+
+char kfifo_pop(void)
+{
+	
+	 ret = kfifo_out(&my_fifo, str, 3);
+	 {
+		printk(KERN_ERR " %s : kfifo pop/out is failed\n", THIS_MODULE->name);
+
+	 }
+ 	printk(KERN_INFO " %s : kfifo pop/out is DONE\n", THIS_MODULE->name);
+	return str;
+	
+}
+
+
+
 //===========================================================
 
 
@@ -45,15 +75,20 @@ static __init int export_init(void)
         k_len = kfifo_len(&my_kfifo);
         k_avail = kfifo_avail(&my_kfifo);
 	
-	printk(KERN_INFO " %s : size of kfifo = %d , length of kfifo = %d, kfifo avail = %d\n", THIS_MODULE->name, k_size, k_len, k_avail);
 	
 
 	return 0;
 }
 
+//==================================================================================
+
 static __exit void export_exit(void)
 {
 	printk(KERN_INFO " %s : export_exit() function start \n", THIS_MODULE->name);
+
+	printk(KERN_INFO " %s : size of kfifo = %d , length of kfifo = %d, kfifo avail = %d\n", THIS_MODULE->name, k_size, k_len, k_avail);
+	
+	printk(KERN_INFO " %s : export_exit() function end \n", THIS_MODULE->name);
 	
 
 }
@@ -65,6 +100,8 @@ EXPORT_SYMBOL(k_size);
 EXPORT_SYMBOL(k_len);
 EXPORT_SYMBOL(k_avail);
 
+EXPORT_SYMBOL(kfifo_push);
+EXPORT_SYMBOL(kfifo_pop);
 
 
 MODULE_LICENSE("GPL");
