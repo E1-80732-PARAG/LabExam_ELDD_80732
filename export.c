@@ -35,7 +35,7 @@ void kfifo_push(char *ch)
 char* kfifo_pop(void)
 {
 	
-	 ret = kfifo_out(&my_kfifo, str, 3);
+	 ret = kfifo_out(&my_kfifo, str, 5);
 	 if(ret < 0)
 	 {
 		printk(KERN_ERR " %s : kfifo pop/out is failed\n", THIS_MODULE->name);
@@ -45,9 +45,6 @@ char* kfifo_pop(void)
 	return str;
 	
 }
-
-	k_len = kfifo_len(&my_kfifo);
-        k_avail = kfifo_avail(&my_kfifo);
 
 
 //===========================================================
@@ -75,7 +72,11 @@ static __init int export_init(void)
 	}
 
 	
-	
+	printk(KERN_INFO " %s : export_init() function over \n", THIS_MODULE->name);
+
+
+	k_len = kfifo_len(&my_kfifo);
+        k_avail = kfifo_avail(&my_kfifo);
 
 	return 0;
 }
@@ -88,7 +89,7 @@ static __exit void export_exit(void)
 
 	printk(KERN_INFO " %s : size of kfifo = %d , length of kfifo = %d, kfifo avail = %d\n", THIS_MODULE->name, k_size, k_len, k_avail);
 	
-	printk(KERN_INFO " %s : export_exit() function end \n", THIS_MODULE->name);
+	printk(KERN_INFO " %s : export_exit() function over \n", THIS_MODULE->name);
 	
 
 }
