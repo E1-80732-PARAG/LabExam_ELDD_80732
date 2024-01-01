@@ -4,7 +4,7 @@
 
 extern int k_size, k_len, k_avail;
 
-void kfifo_push(char ch);
+void kfifo_push(char *ch);
 char* kfifo_pop(void);
 
 

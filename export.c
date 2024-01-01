@@ -46,6 +46,8 @@ char* kfifo_pop(void)
 	
 }
 
+	k_len = kfifo_len(&my_kfifo);
+        k_avail = kfifo_avail(&my_kfifo);
 
 
 //===========================================================
@@ -71,10 +73,7 @@ static __init int export_init(void)
 		printk(KERN_ERR " %s : kfifo alloc is failed\n", THIS_MODULE->name);
 		return -1;
 	}
-	
-	
-        k_len = kfifo_len(&my_kfifo);
-        k_avail = kfifo_avail(&my_kfifo);
+
 	
 	
 
